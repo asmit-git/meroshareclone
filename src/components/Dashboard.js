@@ -2,7 +2,7 @@ import React from "react";
 import Layout from "./Layout";
 import MessageSlider from "./MessageSlider";
 
-const Home = () => {
+const Dashboard = () => {
   return (
     <Layout>
       <div className="my-6">
@@ -12,4 +12,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Dashboard;

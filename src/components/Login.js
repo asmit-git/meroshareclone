@@ -6,14 +6,30 @@ import {
   UserIcon,
   LockClosedIcon,
 } from "@heroicons/react/24/outline";
+import { useAuth } from "../context/auth";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [auth, setAuth] = useAuth();
+  const [error, setError] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
   const [dp, setDp] = useState("");
   const [userName, setUsername] = useState("");
   const [pwd, setPwd] = useState("");
-  const handleLogin = () => {
-    console.log("loggedin successfully");
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (dp !== "" && userName === "123456" && pwd === "123456") {
+      setAuth({
+        ...auth,
+        user: "johd doe",
+      });
+      localStorage.setItem("auth", JSON.stringify({ user: "John doe" }));
+      navigate(location.state || "/");
+    } else {
+      setError("Wrong Username or Passwored");
+    }
   };
   return (
     <div className="app bg-primary">
@@ -114,7 +130,7 @@ const Login = () => {
                 className="rounded h-9 w-full bg-white focus:outline-none p-2 text-sm font-normal"
               />
               <button
-                onClick={handleLogin}
+                onClick={(e) => handleLogin(e)}
                 className="rounded cursor-pointer h-12 w-full bg-btnclr text-btntextclr"
               >
                 Login

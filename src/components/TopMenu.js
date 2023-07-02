@@ -4,8 +4,17 @@ import {
   ArrowRightOnRectangleIcon,
 } from "@heroicons/react/24/outline";
 import { UserIcon } from "@heroicons/react/24/solid";
+import { useAuth } from "../context/auth";
 
 const TopMenu = ({ iconNav, setIconNav }) => {
+  const [auth, setAuth] = useAuth();
+  const handleLogout = () => {
+    localStorage.removeItem("auth");
+    setAuth({
+      ...auth,
+      user: null,
+    });
+  };
   return (
     <div
       className={`${
@@ -25,7 +34,10 @@ const TopMenu = ({ iconNav, setIconNav }) => {
           <Bars3Icon onClick={() => setIconNav(!iconNav)} className="h-6 w-6" />
         </div>
         <div className="flex items-center gap-x-4">
-          <ArrowRightOnRectangleIcon className="h-6 w-6 text-gray-400" />
+          <ArrowRightOnRectangleIcon
+            onClick={handleLogout}
+            className="h-6 w-6 text-gray-400"
+          />
           <div className="flex items-center gap-x-2">
             <UserIcon className="h-6 w-6 text-gray-400" />
             <div className="flex flex-col items-start justify-start">
